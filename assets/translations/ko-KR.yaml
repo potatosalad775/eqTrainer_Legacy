@@ -1,0 +1,132 @@
+{
+  ## SESSION CONFIGURATION PAGE
+  ## Session Page Headline
+  "HEADLINE_SESSION_PAGE_UPPER": "세션",
+  "HEADLINE_SESSION_PAGE_LOWER": "설정하기",
+  ## Start Session Button
+  "BUTTON_SESSION_START": "세션 시작하기",
+  ## Name and Description of various variables for session. part of "SessionSelectorCard"
+  "SSC_NAME_STARTING_POINT": "초기 밴드",
+  "SSC_DESC_STARTING_POINT": "EQ 필터의 중심 주파수",
+  "SSC_NAME_GAIN": "게인",
+  "SSC_DESC_GAIN": "EQ 필터의 게인 값",
+  "SSC_NAME_QFACTOR": "Q Factor",
+  "SSC_DESC_QFACTOR": "EQ 필터의 대역폭 넓이",
+  "SSC_NAME_FILTER": "필터",
+  "SSC_DESC_FILTER": "EQ 필터의 모양",
+  "SSC_NAME_POINTLIMIT": "포인트 제한선",
+  "SSC_DESC_POINTLIMIT": "밴드값 증감을 위한 기준값",
+
+  ## SESSION SERVICE
+  ## Session Service Page Appbar headline
+  "HEADLINE_SESSION_SERVICE": "세션",
+  ## Exit Session - Alert Dialog
+  "ALERT_SESSION_EXIT_TITLE": "정말로 나가시겠습니까?",
+  "ALERT_SESSION_EXIT_CONTENT": "계속을 눌러 진행 중인 세션을 이어나가거나, 나가기를 눌러 지금까지의 결과를 볼 수 있습니다.",
+  "ALERT_SESSION_EXIT_CONTINUE": "계속",
+  "ALERT_SESSION_EXIT_EXIT": "나가기",
+  ## EQ Filter ON/OFF Toggle Button
+  "BUTTON_EQ_ON": "EQ 필터 해제",
+  "BUTTON_EQ_OFF": "EQ 필터 적용",
+  ## Correct Feedback SnackBar
+  "SNACKBAR_FEEDBACK_CORRECT": "정답!",
+  "SNACKBAR_FEEDBACK_ANSWER": "정답은 {ANSWER_INDEX}번입니다.",
+  ## Incorrect Feedback SnackBar
+  "SNACKBAR_FEEDBACK_INCORRECT": "오답!",
+  #### "SNACKBAR_FEEDBACK_ANSWER": "the answer was @answerIndex" -> Already included above
+  ## Progress Notifier between Sessions
+  "PROGRESS_INDICATOR_PAGE_SESSION_UPPER": "세션을 위해 오디오 클립을 준비하는 중입니다.",
+  "PROGRESS_INDICATOR_PAGE_SESSION_LOWER": "잠시 기다려주세요...",
+
+  ## PLAYLIST CONFIGURATION PAGE
+  ## playlist page headline
+  "HEADLINE_PLAYLIST_PAGE_UPPER": "플레이리스트",
+  "HEADLINE_PLAYLIST_PAGE_LOWER": "설정하기",
+  ## playlist page
+  "BODYTEXT_PLAYLIST_PAGE_EMPTY_UPPER": "플레이리스트가 비어있습니다.",
+  "BODYTEXT_PLAYLIST_PAGE_EMPTY_LOWER": "아래의 버튼을 눌러 세션에 사용할 오디오 클립을 추가할 수 있습니다.",
+  "BUTTON_ADD_AUDIO_CLIP": "오디오 클립 추가하기",
+  ## error alert dialog
+  "ALERT_ERROR_PLAYLIST_PAGE_TITLE": "죄송합니다! 알 수 없는 에러가 발생했습니다.",
+  "ALERT_ERROR_PLAYLIST_PAGE_DISMISS": "닫기",
+  ## audio clip - long press context menu
+  "MENU_AUDIO_CLIP_PLAY": "재생",
+  "MENU_AUDIO_CLIP_DELETE": "삭제",
+  "ALERT_AUDIO_CLIP_DELETED": "오디오 클립이 삭제되었습니다.",
+
+  ## RESULT PAGE
+  ## Result Page Appbar Headline
+  "HEADLINE_RESULT_PAGE": "결과",
+  ## Result Page Bottom Bar
+  "BOTTOM_BAR_RESULT_TOTAL": "총 결과",
+  "BOTTOM_BAR_RESULT_NOTTESTED": "테스트되지 않음",
+  # THIS LINE MIGHT OVERFLOW. KEEP IT SHORT
+  "BOTTOM_BAR_RESULT_SCORELIST": "정답: {correctScore} / 오답: {incorrectScore} / 총합: {totalScore}",
+
+  ## SETTINGS PAGE
+  ## Settings Page Headline
+  "HEADLINE_SETTINGS_PAGE": "어플리케이션 설정",
+  ## Dark Mode Setting
+  "SETTINGS_DARKMODE": "다크 모드",
+  "DARKMODE_LIGHT": "라이트",
+  "DARKMODE_DARK": "다크",
+  "DARKMODE_SYSTEM": "시스템 설정 따르기",
+  ## Language Setting
+  "SETTINGS_LANGUAGE": "언어",
+  "LANG_ENGLISH": "영어",
+  "LANG_KOREAN": "한국어",
+  ## Donate
+  "SETTINGS_DONATE": "기부하기",
+  "SETTINGS_DEV": "개발자",
+
+  ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
+  ## Page Disclaimer
+  "AUDIO_EDIT_PAGE_DISCLAIMER_1": "선택하신 오디오 파일을 클립으로 수정할 수 있습니다.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_2": "플레이리스트가 길어질수록, 세션을 진행할 때마다 더 긴 시간을 기다려야 합니다.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_3": "되도록이면 플레이리스트의 길이를 짧게 하세요.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_4": "'플레이리스트 설정하기' 화면에 있는 오디오 클립의 스위치를 끄면, 해당 클립이 비활성화되면서 파일을 삭제하지 않고도 플레이리스트를 짧게 유지할 수 있습니다.",
+  ## Save Audio Clip Button
+  "BUTTON_AUDIO_CLIP_SAVE": "오디오 클립 저장하기",
+  ## File Selection Canceled Alert Dialog
+  "ALERT_AUDIO_FILESELECTION_CANCELED_TITLE": "파일 선택이 취소되었습니다.",
+  "ALERT_AUDIO_FILESELECTION_CANCELED_DISMISS": "닫기",
+  ## StartPoint Selector Button
+  "BUTTON_AUDIO_EDIT_PAGE_STARTPOINT": "시작점",
+  ## Alert SnackBar - User tried to set Startpoint ahead of Endpoint.
+  "SNACKBAR_AUDIO_EDIT_START_AFTER_END_TITLE": "경고",
+  "SNACKBAR_AUDIO_EDIT_START_AFTER_END_MESSAGE": "시작점을 끝점보다 뒤에 설정할 수 없습니다.",
+  ## EndPoint Selector Button
+  "BUTTON_AUDIO_EDIT_PAGE_ENDPOINT": "끝점",
+  ## Alert SnackBar - User tried to set Startpoint ahead of Endpoint.
+  "SNACKBAR_AUDIO_EDIT_END_BEFORE_START_TITLE": "경고",
+  "SNACKBAR_AUDIO_EDIT_END_BEFORE_START_MESSAGE": "끝점을 시작점보다 앞에 설정할 수 없습니다.",
+
+  ## GLOBALS FILE
+  ## Alert Dialog - Saving playlist file as json format failed
+  "SNACKBAR_PLAYLIST_SAVE_FAILED_TITLE": "에러!",
+  "SNACKBAR_PLAYLIST_SAVE_FAILED_MESSAGE": "플레이리스트 파일을 수정하지 못했습니다.",
+  ## Name and Descriptions of Frequency Range
+  "FR_SUB_BASS": "극저음역대",
+  "FR_SUB_BASS_DESC": "20Hz부터 80Hz까지",
+  "FR_MID_BASS": "저음역대",
+  "FR_MID_BASS_DESC": "80Hz부터 200Hz까지",
+  "FR_LOWER_MIDRANGE": "중저음역대",
+  "FR_LOWER_MIDRANGE_DESC": "200Hz부터 800Hz까지",
+  "FR_CENTER_MIDRANGE": "중음역대",
+  "FR_CENTER_MIDRANGE_DESC": "800Hz부터 1500Hz까지",
+  "FR_UPPER_MIDRANGE": "중고음역대",
+  "FR_UPPER_MIDRANGE_DESC": "1500Hz부터 5000Hz까지",
+  "FR_TREBLE": "고음역대",
+  "FR_TREBLE_DESC": "5000Hz부터 10000Hz까지",
+  "FR_UPPER_TREBLE": "초고음역대",
+  "FR_UPPER_TREBLE_DESC": "10000Hz 이상",
+
+  ## HELP PAGE
+  "HELP_STARTING_BAND": "'초기 밴드' 항목은 그래프가 사용할 중심 주파수 값의 개수를 결정합니다. 위 사진은 초기 밴드값을 4로 설정한 상태입니다. Peak 필터와 Dip 필터가 같은 중심 주파수 값을 공유하기 때문에 실제로는 8개의 그래프가 그려집니다. 밴드값은 2보다 적어지거나, 25보다 많아질 수 없습니다.",
+  "HELP_GAIN": "'게인'값은 EQ 필터가 원음의 소리를 얼마나 바꾸는지에 영향을 미칩니다. 게인 값이 올라갈수록, EQ 필터를 켜고 껐을 때 두 음원의 차이가 더 쉽고 분명하게 들립니다.",
+  "HELP_QFACTOR": "'Q Factor' 항목은 EQ 필터의 대역폭을 결정합니다. Q Factor값이 높을수록 EQ 필터의 대역폭이 넓어져, EQ 필터를 켜고 껐을 때 두 음원의 차이가 더 쉽고 분명하게 구분됩니다.",
+  "HELP_FILTER": "'필터' 모드는 세션 중 사용할 EQ 필터가 원음을 부스트할지(Peak), 아니면 컷할지(Dip)를 결정합니다. EQ 필터가 소리를 부스트하거나 컷할 수 있도록(Peak & Dip) 설정할 수도 있습니다.",
+  "HELP_POINTLIMIT": "'포인트 제한선'은 세션이 진행되는 중 사용자의 결과에 따라 초기 밴드값을 증감하는데 영향을 미칩니다. 정답/오답을 고를 때마다, '포인트'가 1씩 오르거나 내려갑니다. 만약 포인트의 절댓값이 '포인트 제한선'에 도달한다면 밴드값이 1씩 줄거나 늘어나고, '포인트'는 0으로 초기화됩니다.",
+  "HELP_DISCLAIMER_SESSION": "세션 중 그려지는 그래프는 참고용으로, EQ 필터의 모양을 정확하게 재현하지 않습니다.",
+  "HELP_DISCLAIMER_PLAYLIST": "플레이리스트는 가능한 짧게 유지할 것을 권장합니다. 플레이리스트가 길어질수록, 매번 세션을 시작할 때마다 더 긴 시간을 기다려야합니다. 플레이리스트 관리 화면에 있는 오디오 클립을 비활성화하면 클립을 삭제하지 않고도 플레이리스트를 짧게 유지할 수 있습니다.",
+}

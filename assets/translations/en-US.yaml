@@ -1,0 +1,132 @@
+{
+  ## SESSION CONFIGURATION PAGE
+  ## Session Page Headline
+  "HEADLINE_SESSION_PAGE_UPPER": "Session",
+  "HEADLINE_SESSION_PAGE_LOWER": "Configuration",
+  ## Start Session Button
+  "BUTTON_SESSION_START": "Start Session",
+  ## Name and Description of various variables for session. part of "SessionSelectorCard"
+  "SSC_NAME_STARTING_POINT": "Starting Band",
+  "SSC_DESC_STARTING_POINT": "Center Frequency of EQ Filter",
+  "SSC_NAME_GAIN": "Gain",
+  "SSC_DESC_GAIN": "Gain Value of EQ Filter",
+  "SSC_NAME_QFACTOR": "Q Factor",
+  "SSC_DESC_QFACTOR": "Band-Width of EQ Filter",
+  "SSC_NAME_FILTER": "Filter",
+  "SSC_DESC_FILTER": "Appearance of EQ Filter",
+  "SSC_NAME_POINTLIMIT": "Point Limit",
+  "SSC_DESC_POINTLIMIT": "Upper/Lower limit for each Round",
+
+  ## SESSION SERVICE
+  ## Session Service Page Appbar headline
+  "HEADLINE_SESSION_SERVICE": "Session",
+  ## Exit Session - Alert Dialog
+  "ALERT_SESSION_EXIT_TITLE": "Are you sure?",
+  "ALERT_SESSION_EXIT_CONTENT": "you can either CONTINUE session, or EXIT and see result.",
+  "ALERT_SESSION_EXIT_CONTINUE": "Continue",
+  "ALERT_SESSION_EXIT_EXIT": "Exit",
+  ## EQ Filter ON/OFF Toggle Button
+  "BUTTON_EQ_ON": "EQ Filter ON",
+  "BUTTON_EQ_OFF": "EQ Filter OFF",
+  ## Correct Feedback SnackBar
+  "SNACKBAR_FEEDBACK_CORRECT": "Correct!",
+  "SNACKBAR_FEEDBACK_ANSWER": "The answer was {ANSWER_INDEX}.",
+  ## Incorrect Feedback SnackBar
+  "SNACKBAR_FEEDBACK_INCORRECT": "Incorrect!",
+  #### "SNACKBAR_FEEDBACK_ANSWER": "the answer was @answerIndex" -> Already included above
+  ## Progress Notifier between Sessions
+  "PROGRESS_INDICATOR_PAGE_SESSION_UPPER": "Preparing Audio Clips for this Session.",
+  "PROGRESS_INDICATOR_PAGE_SESSION_LOWER": "Please Wait...",
+
+  ## PLAYLIST CONFIGURATION PAGE
+  ## playlist page headline
+  "HEADLINE_PLAYLIST_PAGE_UPPER": "Playlist",
+  "HEADLINE_PLAYLIST_PAGE_LOWER": "Configuration",
+  ## playlist page
+  "BODYTEXT_PLAYLIST_PAGE_EMPTY_UPPER": "Playlist is Empty",
+  "BODYTEXT_PLAYLIST_PAGE_EMPTY_LOWER": "Touch the button below to create a new Audio clip for session.",
+  "BUTTON_ADD_AUDIO_CLIP": "Add Audio Clip",
+  ## error alert dialog
+  "ALERT_ERROR_PLAYLIST_PAGE_TITLE": "Sorry! Unknown Error Occurred.",
+  "ALERT_ERROR_PLAYLIST_PAGE_DISMISS": "Dismiss",
+  ## audio clip - long press context menu
+  "MENU_AUDIO_CLIP_PLAY": "Play",
+  "MENU_AUDIO_CLIP_DELETE": "Delete",
+  "ALERT_AUDIO_CLIP_DELETED": "Audio Clip Deleted.",
+
+  ## RESULT PAGE
+  ## Result Page Appbar Headline
+  "HEADLINE_RESULT_PAGE": "Result",
+  ## Result Page Bottom Bar
+  "BOTTOM_BAR_RESULT_TOTAL": "Total Result",
+  "BOTTOM_BAR_RESULT_NOTTESTED": "Not Tested",
+  # THIS LINE MIGHT OVERFLOW. KEEP IT SHORT
+  "BOTTOM_BAR_RESULT_SCORELIST": "O: {correctScore} / X: {incorrectScore} / T: {totalScore}",
+
+  ## SETTINGS PAGE
+  ## Settings Page Headline
+  "HEADLINE_SETTINGS_PAGE": "Settings",
+  ## Dark Mode Setting
+  "SETTINGS_DARKMODE": "Dark Mode",
+  "DARKMODE_LIGHT": "Light",
+  "DARKMODE_DARK": "Dark",
+  "DARKMODE_SYSTEM": "Follow System",
+  ## Language Setting
+  "SETTINGS_LANGUAGE": "Language",
+  "LANG_ENGLISH": "English",
+  "LANG_KOREAN": "Korean",
+  ## Donate
+  "SETTINGS_DONATE": "Donate",
+  "SETTINGS_DEV": "Developer",
+
+  ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
+  ## Page Disclaimer
+  "AUDIO_EDIT_PAGE_DISCLAIMER_1": "You can cut your selected audio file into a audio clip.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_2": "The longer your entire playlist is, The longer you have to wait for every session.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_3": "Try to maintain your playlist as short as possible.",
+  "AUDIO_EDIT_PAGE_DISCLAIMER_4": "You can switch off certain Audio clips in 'Playlist Configure' page to keep playlist shorter, without removing audio clips.",
+  ## Save Audio Clip Button
+  "BUTTON_AUDIO_CLIP_SAVE": "Save Audio Clip",
+  ## File Selection Canceled Alert Dialog
+  "ALERT_AUDIO_FILESELECTION_CANCELED_TITLE": "File Selection got canceled.",
+  "ALERT_AUDIO_FILESELECTION_CANCELED_DISMISS": "Dismiss",
+  ## StartPoint Selector Button
+  "BUTTON_AUDIO_EDIT_PAGE_STARTPOINT": "STARTPOINT",
+  ## Alert SnackBar - User tried to set Startpoint ahead of Endpoint.
+  "SNACKBAR_AUDIO_EDIT_START_AFTER_END_TITLE": "Warning",
+  "SNACKBAR_AUDIO_EDIT_START_AFTER_END_MESSAGE": "You cannot set startPoint after endPoint.",
+  ## EndPoint Selector Button
+  "BUTTON_AUDIO_EDIT_PAGE_ENDPOINT": "ENDPOINT",
+  ## Alert SnackBar - User tried to set Startpoint ahead of Endpoint.
+  "SNACKBAR_AUDIO_EDIT_END_BEFORE_START_TITLE": "Warning",
+  "SNACKBAR_AUDIO_EDIT_END_BEFORE_START_MESSAGE": "You cannot set endPoint before startPoint.",
+
+  ## GLOBALS FILE
+  ## Snackbar Alert - Saving playlist file as json format failed
+  "SNACKBAR_PLAYLIST_SAVE_FAILED_TITLE": "Error!",
+  "SNACKBAR_PLAYLIST_SAVE_FAILED_MESSAGE": "Failed at writing Playlist File.",
+  ## Name and Descriptions of Frequency Range
+  "FR_SUB_BASS": "Sub-Bass",
+  "FR_SUB_BASS_DESC": "20Hz to 80Hz",
+  "FR_MID_BASS": "Mid-Bass",
+  "FR_MID_BASS_DESC": "80Hz to 200Hz",
+  "FR_LOWER_MIDRANGE": "Lower-Midrange",
+  "FR_LOWER_MIDRANGE_DESC": "200Hz to 800Hz",
+  "FR_CENTER_MIDRANGE": "Center-Midrange",
+  "FR_CENTER_MIDRANGE_DESC": "800Hz to 1500Hz",
+  "FR_UPPER_MIDRANGE": "Upper-Midrange",
+  "FR_UPPER_MIDRANGE_DESC": "1500Hz to 5000Hz",
+  "FR_TREBLE": "Treble",
+  "FR_TREBLE_DESC": "5000Hz to 10000Hz",
+  "FR_UPPER_TREBLE": "Upper-Treble",
+  "FR_UPPER_TREBLE_DESC": "beyond 10000Hz",
+
+  ## HELP PAGE
+  "HELP_STARTING_BAND": "'Starting Band' means the number of center frequency for each graphs. the picture above has 4 Starting Bands. Since Peak filter and Dip filter shares the same center frequency, you can actually see 8 graphs were drawn. the number of bands can't go lower than 2 or, higher than 25.",
+  "HELP_GAIN": "'Gain' affects how much the EQ Filter will alter your audio clip. if you set the Gain value higher, the difference is more audible and easier to hear.",
+  "HELP_QFACTOR": "'Q Factor' determines the band-width of EQ Filter. Higher Q Factor means Wider EQ Filter, which is more audible and easier to identify.",
+  "HELP_FILTER": "'Filter' modes affect whether your audio clip is boosted(Peak) or cut(Dip). You can make the filter to either boost or cut original audio clips.(Peak & Dip).",
+  "HELP_POINTLIMIT": "'Point Limit' will control the number of bands, depending your session performance. As you choose correct/incorrect answers, the 'Round Point' will be increased/decreased by 1. if your point's absolute value hits the 'Point Limit', the number of bands will be increased/decreased by 1 and the 'Round Point' will be reset to 0.",
+  "HELP_DISCLAIMER_SESSION": "the Graphs shown during session DOES NOT accurately represents how EQ Filter looks alike.",
+  "HELP_DISCLAIMER_PLAYLIST": "It is recommended to keep your playlist as short as possible. the longer your playlist is, the longer you have to wait for every session. Simply disabling audio clips on 'Playlist Configuration Page' shortens your playlist without deleting it.",
+}
