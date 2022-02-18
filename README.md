@@ -17,11 +17,13 @@ eqTrainer supports multiple languages.
 If you are interested in translating this app into your language,
 Please translate [en_US.yaml][ENG_YAML_LINK] file and send it to <transaction@kakao.com>. 
 
+### Packages Used
+
+
 ---------------------
 
 This is my first flutter project. this project might require some refactoring and refining.     
 Any suggestions are welcomed.
-
 
 ### Donate   
 If you like my project, Please consider donating!   
