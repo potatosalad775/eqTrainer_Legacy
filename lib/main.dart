@@ -11,12 +11,14 @@ import 'package:eqtrainer/service/SessionService.dart';
 import 'package:eqtrainer/service/ThemeService.dart';
 import 'package:eqtrainer/pages/ResultPage.dart';
 import 'package:eqtrainer/data/themeData.dart';
+import 'package:eqtrainer/service/UpgradeService.dart';
 
 void main() async {
   await GetStorage.init();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  UpgradeService().checkUpgrade();
 
   runApp(EasyLocalization(
     path: 'assets/translations',
@@ -52,6 +54,7 @@ class EQTrainerApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

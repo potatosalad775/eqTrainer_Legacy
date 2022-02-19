@@ -81,6 +81,14 @@
   ## Donate
   "SETTINGS_DONATE": "기부하기",
   "SETTINGS_DEV": "개발자",
+  ## Update
+  "ALERT_UPDATE_FOUND_TITLE": "앱 업데이트 이용 가능",
+  "ALERT_UPDATE_FOUND_CONTENT": "eqTrainer의 새로운 버전이 발견되었습니다.",
+  "ALERT_UPDATE_FOUND_SKIP": "다음에",
+  "ALERT_UPDATE_FOUND_DOWNLOAD": "다운로드",
+  "SETTINGS_UPDATE": "앱 버전",
+  "SETTINGS_UPDATE_AVAILABLE": "업데이트 가능",
+  "SETTINGS_UPDATE_NOTFOUND": "업데이트 발견 안 됨",
 
   ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
   ## Page Disclaimer

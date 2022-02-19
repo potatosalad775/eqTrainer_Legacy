@@ -81,6 +81,14 @@
   ## Donate
   "SETTINGS_DONATE": "Donate",
   "SETTINGS_DEV": "Developer",
+  ## Update
+  "ALERT_UPDATE_FOUND_TITLE": "New App Update Found",
+  "ALERT_UPDATE_FOUND_CONTENT": "New Update for eqTrainer was found at Github.",
+  "ALERT_UPDATE_FOUND_SKIP": "Skip",
+  "ALERT_UPDATE_FOUND_DOWNLOAD": "Download",
+  "SETTINGS_UPDATE": "Version",
+  "SETTINGS_UPDATE_AVAILABLE": "Update Available",
+  "SETTINGS_UPDATE_NOTFOUND": "No Update Found",
 
   ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
   ## Page Disclaimer

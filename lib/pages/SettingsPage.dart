@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eqtrainer/service/ThemeService.dart';
+import 'package:eqtrainer/service/UpgradeService.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -54,6 +55,7 @@ class SettingsPage extends StatelessWidget {
                 SettingCardLanguage(),
                 DonationCard(),
                 ContactDevCard(),
+                UpdateCard(),
                 OpenSourceLicenseCard()
               ],
             ),
@@ -362,6 +364,66 @@ class OpenSourceLicenseCard extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LicensePage()));
+            },
+            contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
+            horizontalTitleGap: 0,
+          )
+      ),
+    );
+  }
+}
+
+class UpdateCard extends StatelessWidget {
+  const UpdateCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)
+          ),
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          child: ListTile(
+            leading: Icon(
+              Icons.system_update,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            title: Text(
+              "SETTINGS_UPDATE",
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.onSurface
+              ),
+            ).tr(),
+            // Version Info
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(
+                  "v$versionMAJOR.$versionMINOR.$versionPATCH",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.onSurface
+                  ),
+                ),
+                Text(
+                  (isUpdateAvailable)
+                      ? "SETTINGS_UPDATE_AVAILABLE"
+                      : "SETTINGS_UPDATE_NOTFOUND",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onSurface
+                  ),
+                ).tr(),
+              ],
+            ),
+            onTap: () {
+              if(isUpdateAvailable) {
+                launch("https://github.com/potatosalad775/eqTrainer/releases/latest");
+              }
             },
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
             horizontalTitleGap: 0,
