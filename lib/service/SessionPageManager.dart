@@ -1,10 +1,13 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:eqtrainer/globals.dart' as globals;
 
@@ -423,9 +426,6 @@ class SessionPageManager {
   late String filteredClipDir;
   // format / file extension of audio clip trying to filter.
   late String clipFormat;
-  // Flutter FFmpeg for clipping & filtering audio.
-  final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
-  final FlutterFFmpegConfig _flutterFFmpegConfig = FlutterFFmpegConfig();
 
   // Filtered Audio Source Updater
   // This will apply eq filter to each enabled audio clips from list of AudioFileIndex and make temp files.
@@ -433,8 +433,6 @@ class SessionPageManager {
   // and this will be applied to filteredPlayer's ConcatenatingAudioSource.
   Future<void> setFilteredAudioSource() async {
     List<AudioSource> finalAudioSourceList = [];
-    // Disabling FFmpeg Logs.
-    _flutterFFmpegConfig.disableLogs();
     for(int index = 0; index < globals.playlistData.length; ++index) {
       // Creating list of AudioSource
       if(globals.playlistData[index].enabled) {
@@ -481,7 +479,20 @@ class SessionPageManager {
         // -vn : skip inclusion of video stream, which might cause error with files such as m4a or more.
         var arguments2 = ["-y", "-i", globals.playlistData[index].directory, "-af", "equalizer=f=$centerFreq:t=q:w=${globals.sessionQFactor}:g=$gain", "-vn", filteredClipDir];
         // applying filter to clipped audio
-        await _flutterFFmpeg.executeWithArguments(arguments2).then((rc) => print("FFmpeg process exited with rc $rc"));
+        FFmpegKit.executeWithArgumentsAsync((arguments2), (session) async {
+          final returnCode = await session.getReturnCode();
+          // if it's canceled or error occurred
+          if(!ReturnCode.isSuccess(returnCode)) {
+            GetSnackBar(
+              icon: const Icon(Icons.error),
+              title: tr("SNACKBAR_ERROR_FFMPEG_TITLE"),
+              message: tr("SNACKBAR_ERROR_FFMPEG_MESSAGE"),
+              duration: const Duration(seconds: 2),
+              snackPosition: SnackPosition.TOP,
+            );
+          }
+          print(session.getOutput);
+        });
         // add filtered audio to finalAudioSourceList
         finalAudioSourceList.add(AudioSource.uri(Uri.parse(filteredClipDir)));
       }

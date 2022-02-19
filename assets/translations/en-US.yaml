@@ -37,6 +37,9 @@
   ## Progress Notifier between Sessions
   "PROGRESS_INDICATOR_PAGE_SESSION_UPPER": "Preparing Audio Clips for this Session.",
   "PROGRESS_INDICATOR_PAGE_SESSION_LOWER": "Please Wait...",
+  ## Error Occurred during generating Audio Clip / Filtering Audio Clip with FFmpeg
+  "SNACKBAR_ERROR_FFMPEG_TITLE": "Error Occurred",
+  "SNACKBAR_ERROR_FFMPEG_MESSAGE": "Unknown Error occurred while handling the Audio file.",
 
   ## PLAYLIST CONFIGURATION PAGE
   ## playlist page headline

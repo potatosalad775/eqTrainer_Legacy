@@ -26,8 +26,8 @@
   "ALERT_SESSION_EXIT_CONTINUE": "계속",
   "ALERT_SESSION_EXIT_EXIT": "나가기",
   ## EQ Filter ON/OFF Toggle Button
-  "BUTTON_EQ_ON": "EQ 필터 해제",
-  "BUTTON_EQ_OFF": "EQ 필터 적용",
+  "BUTTON_EQ_ON": "EQ 필터 적용",
+  "BUTTON_EQ_OFF": "EQ 필터 해제",
   ## Correct Feedback SnackBar
   "SNACKBAR_FEEDBACK_CORRECT": "정답!",
   "SNACKBAR_FEEDBACK_ANSWER": "정답은 {ANSWER_INDEX}번입니다.",
@@ -37,6 +37,9 @@
   ## Progress Notifier between Sessions
   "PROGRESS_INDICATOR_PAGE_SESSION_UPPER": "세션을 위해 오디오 클립을 준비하는 중입니다.",
   "PROGRESS_INDICATOR_PAGE_SESSION_LOWER": "잠시 기다려주세요...",
+  ## Error Occurred during generating Audio Clip / Filtering Audio Clip with FFmpeg
+  "SNACKBAR_ERROR_FFMPEG_TITLE": "오류 발생",
+  "SNACKBAR_ERROR_FFMPEG_MESSAGE": "오디오 파일을 처리하는 도중 알 수 없는 오류가 발생했습니다.",
 
   ## PLAYLIST CONFIGURATION PAGE
   ## playlist page headline

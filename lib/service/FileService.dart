@@ -1,8 +1,11 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:duration/duration.dart';
-import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:eqtrainer/globals.dart' as globals;
 
 class FileService {
@@ -14,14 +17,9 @@ class FileService {
   // time stamps required for clipping audio with ffmpeg_flutter.
   late String clipStartMSec;
   late String clipDurationMSec;
-  // Flutter FFmpeg for clipping & filtering audio.
-  final FlutterFFmpeg _flutterFFmpeg = FlutterFFmpeg();
-  final FlutterFFmpegConfig _flutterFFmpegConfig = FlutterFFmpegConfig();
 
   // this function will clip audio and copy it into app's document directory.
   Future<void> clipAudio(String fileName, String fileDirectory, Duration startPoint, Duration endPoint) async {
-    // Disabling FFmpeg Logs.
-    _flutterFFmpegConfig.disableLogs();
     // fetching application's document directory
     documentDir = await getApplicationDocumentsDirectory();
     // this will create /audio directory in app document directory, if this does not exist.
@@ -38,7 +36,20 @@ class FileService {
     // -ss clipStartSec ~ -to clipDurationSec : cutting audio into clip, starting from clipStartSec with duration of clipDurationSec
     var arguments1 = ["-y", "-i", fileDirectory, "-vn", "-ss", clipStartMSec, "-to", clipDurationMSec, clipDir];
     // clipping original audio
-    await _flutterFFmpeg.executeWithArguments(arguments1).then((rc) => print("FFmpeg process exited with rc $rc"));
+    FFmpegKit.executeWithArgumentsAsync((arguments1), (session) async {
+      final returnCode = await session.getReturnCode();
+      // if it's canceled or error occurred
+      if(!ReturnCode.isSuccess(returnCode)) {
+        GetSnackBar(
+          icon: const Icon(Icons.error),
+          title: tr("SNACKBAR_ERROR_FFMPEG_TITLE"),
+          message: tr("SNACKBAR_ERROR_FFMPEG_MESSAGE"),
+          duration: const Duration(seconds: 2),
+          snackPosition: SnackPosition.TOP,
+        );
+      }
+      print(session.getOutput);
+    });
 
     // update globals.playlistData
     globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint));
