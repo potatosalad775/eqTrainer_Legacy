@@ -59,7 +59,6 @@ class _AudioPreviewState extends State<AudioPreview> {
           duration as Duration,
           // File Format, Not Available for now : just a placeholder for previewing clip.
           // when user actually finish editing and save it, FileService will fill out actual value
-          "NA"
         );
         durationSec = previewPage.selectedAudioIndex.endPoint.inSeconds;
         previewPage.endPointNotifier.value = previewPage.selectedAudioIndex.endPoint;

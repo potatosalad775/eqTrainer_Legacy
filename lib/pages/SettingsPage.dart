@@ -368,14 +368,13 @@ class WipeCacheCard extends StatelessWidget {
             ),
             onTap: () async {
               Directory documentDir = await getApplicationDocumentsDirectory();
-              Directory tempDir = await getTemporaryDirectory();
 
               try {
                 if(Directory(documentDir.path + "/adjusted").existsSync()) {
                   Directory(documentDir.path + "/adjusted").deleteSync(recursive: true);
                 }
-                if(Directory(tempDir.path + "/filtered").existsSync()) {
-                  Directory(tempDir.path + "/filtered").deleteSync(recursive: true);
+                if(Directory(documentDir.path + "/filtered").existsSync()) {
+                  Directory(documentDir.path + "/filtered").deleteSync(recursive: true);
                 }
                 Get.showSnackbar(
                   GetSnackBar(

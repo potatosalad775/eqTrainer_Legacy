@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-
+import 'package:path_provider/path_provider.dart';
 import 'package:eqtrainer/globals.dart' as globals;
 import 'package:eqtrainer/service/AudioPreview.dart';
 import 'package:eqtrainer/service/AudioPageManager.dart';
@@ -253,8 +253,11 @@ class _PlaylistCardState extends State<PlaylistCard> {
                       horizontalTitleGap: 0,
                       leading: const Icon(Icons.delete),
                       title: const Text("MENU_AUDIO_CLIP_DELETE").tr(),
-                      onTap: () {
+                      onTap: () async {
+                        // Delete Original File
                         File(globals.playlistData[widget.index].directory).delete();
+
+                        // Update playlist Data file
                         parent?.setState(() {
                           globals.playlistData.removeAt(widget.index);
                         });
@@ -263,6 +266,32 @@ class _PlaylistCardState extends State<PlaylistCard> {
                         SnackBar(
                           content: const Text("ALERT_AUDIO_CLIP_DELETED").tr(),
                         );
+
+                        // Search and Delete Cache related to Original File
+                        // basic Directory variables
+                        Directory documentDir = await getApplicationDocumentsDirectory();
+                        // this will create /adjusted directory in app document directory, if this does not exist.
+                        Directory adjustedFolderDir = await Directory(documentDir.path + '/adjusted').create(recursive: true);
+                        // this will create /filtered directory in app temporary directory, if this does not exist.
+                        Directory filteredFolderDir = await Directory(documentDir.path + '/filtered').create(recursive: true);
+                        // fetch file list from directories
+                        final List<FileSystemEntity> adjustedFolderEntities = await adjustedFolderDir.list().toList();
+                        final List<FileSystemEntity> filteredFolderEntities = await filteredFolderDir.list().toList();
+                        // search and delete cache
+                        if(adjustedFolderEntities.isNotEmpty) {
+                          for(int index = 0; index < adjustedFolderEntities.length; ++index) {
+                            if(adjustedFolderEntities[index].path.substring(adjustedFolderEntities[index].path.length - globals.playlistData[widget.index].name.length, adjustedFolderEntities[index].path.length) == globals.playlistData[widget.index].name) {
+                              adjustedFolderEntities[index].deleteSync();
+                            }
+                          }
+                        }
+                        if(filteredFolderEntities.isNotEmpty) {
+                          for(int index = 0; index < filteredFolderEntities.length; ++index) {
+                            if(filteredFolderEntities[index].path.substring(filteredFolderEntities[index].path.length - globals.playlistData[widget.index].name.length, filteredFolderEntities[index].path.length) == globals.playlistData[widget.index].name) {
+                              filteredFolderEntities[index].deleteSync();
+                            }
+                          }
+                        }
                       },
                     ),
                   ],

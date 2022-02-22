@@ -21,31 +21,24 @@ class FileService {
     // this will create /audio directory in app document directory, if this does not exist.
     Directory newDirectory = await Directory(documentDir.path + '/original').create(recursive: true);
     // complete directory of clipped original audio file - ex) documentDir/original/filename.mp3
-    clipDir = newDirectory.path + '/' + fileName;
-
-    // String value for the name of file Format.
-    late String clipFormat;
-    // extracting file format from its directory
-    for(int charIndex = fileDirectory.length - 1; charIndex >= 0; --charIndex) {
-      if(fileDirectory[charIndex] == '.') {
-        clipFormat = fileDirectory.substring(charIndex + 1, fileDirectory.length);
-        break;
-      }
-    }
+    clipDir = newDirectory.path + '/${startPoint.inMilliseconds}_${endPoint.inMilliseconds}_$fileName';
 
     // ffmpeg will clip & copy audio file into application's document directory.
     clipStartMSec = '${startPoint.inMilliseconds}ms';
     clipDurationMSec = '${endPoint.inMilliseconds}ms';
 
-    // separated arguments for splitting original audio file into audio clip
-    // -y : force overwrite temp files
-    // -ss clipStartSec ~ -to clipDurationSec : cutting audio into clip, starting from clipStartSec with duration of clipDurationSec
-    var arguments1 = ["-y", "-i", fileDirectory, "-vn", "-ss", clipStartMSec, "-to", clipDurationMSec, clipDir];
-    // clipping original audio
-    FFmpegKit.executeWithArguments(arguments1);
+    bool isOriginalClipExist = await File(clipDir).exists();
+    if(!isOriginalClipExist) {
+      // separated arguments for splitting original audio file into audio clip
+      // -y : force overwrite temp files
+      // -ss clipStartSec ~ -to clipDurationSec : cutting audio into clip, starting from clipStartSec with duration of clipDurationSec
+      var arguments1 = ["-y", "-i", fileDirectory, "-vn", "-ss", clipStartMSec, "-to", clipDurationMSec, clipDir];
+      // clipping original audio
+      FFmpegKit.executeWithArguments(arguments1);
+    }
 
     // update globals.playlistData
-    globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint, clipFormat));
+    globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint));
   }
 }
 
@@ -61,8 +54,6 @@ class AudioFileIndex {
   // ... so it automatically play certain section of audio file during session.
   Duration startPoint;
   Duration endPoint;
-  // File Format name
-  String fileFormat;
 
   AudioFileIndex(
     this.enabled,
@@ -70,7 +61,6 @@ class AudioFileIndex {
     this.directory,
     this.startPoint,
     this.endPoint,
-    this.fileFormat
   );
 
   factory AudioFileIndex.fromJson(Map<String, dynamic> parsedJson){
@@ -80,7 +70,6 @@ class AudioFileIndex {
       parsedJson["directory"],
       parseTime(parsedJson["startPoint"]),
       parseTime(parsedJson["endPoint"]),
-      parsedJson["fileFormat"],
     );
   }
 
@@ -90,6 +79,5 @@ class AudioFileIndex {
     'directory': directory,
     'startPoint': startPoint.toString(),
     'endPoint': endPoint.toString(),
-    'fileFormat': fileFormat,
   };
 }

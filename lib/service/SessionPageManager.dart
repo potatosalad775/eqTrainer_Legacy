@@ -78,11 +78,10 @@ class SessionPageManager {
     await convertToFrequency();
 
     documentDir = await getApplicationDocumentsDirectory();
-    tempDir = await getTemporaryDirectory();
     // this will create /adjusted directory in app document directory, if this does not exist.
     adjustedFolderDir = await Directory(documentDir.path + '/adjusted').create(recursive: true);
     // this will create /filtered directory in app temporary directory, if this does not exist.
-    filteredFolderDir = await Directory(tempDir.path + '/filtered').create(recursive: true);
+    filteredFolderDir = await Directory(documentDir.path + '/filtered').create(recursive: true);
 
     // setting audio source for each players (player for original audio, and filtered audio)
     // setFilteredAudioSource function includes creating filtered audio from original audio.
@@ -160,7 +159,7 @@ class SessionPageManager {
     } else {
       max = globals.sessionStartingBand;
     }
-    answerIndex.value = min + rnd.nextInt(max - min);
+    answerIndex.value = min + rnd.nextInt(max + 1 - min);
 
     if(previousAnswer == answerIndex.value) {
       randomIndexSetter();
@@ -416,9 +415,6 @@ class SessionPageManager {
   late Directory tempDir;
   // complete directory of clipped audio file & filtered audio clip.
   // updated only once in init function.
-  late String filteredClipDir;
-  late String adjustedClipDir;
-
   late Directory adjustedFolderDir;
   late Directory filteredFolderDir;
 
@@ -433,9 +429,9 @@ class SessionPageManager {
       if(globals.playlistData[index].enabled) {
         // Check if adjusted clip already exists.
         // adjusted clip name format : <GainValue>_<startPointinMSec>_<endPointinMSec>_<fileName>.
-        adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
-        bool isAdjustedClipExist = await File(adjustedClipDir).exists();
+        final String adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
         // if adjusted clip does not exist...
+        bool isAdjustedClipExist = await File(adjustedClipDir).exists();
         if(!isAdjustedClipExist) {
           // Creating volume adjusted clip
           // Actually lowering ({user chosen gain value} + 2dB), just in case...
@@ -486,15 +482,20 @@ class SessionPageManager {
           }
         }
 
-        // complete directory of filtered audio clip - ex) tempdir/filtered0.mp3
-        filteredClipDir = tempDir.path + '/filtered' + index.toString() + '.' + globals.playlistData[index].fileFormat;
-        // make filtered audio clip
-        // separated arguments for applying eq filter into clipped audio
-        // -y : force overwrite temp files
-        // -vn : skip inclusion of video stream, which might cause error with files such as m4a or more.
-        var arguments2 = ["-y", "-i", adjustedClipDir, "-af", "equalizer=f=$centerFreq:t=q:w=${globals.sessionQFactor}:g=$gain", "-vn", filteredClipDir];
-        // applying filter to clipped audio
-        await FFmpegKit.executeWithArguments(arguments2);
+        // complete directory of filtered audio clip - ex) tempdir/filtered/2_6_156_651_filename.mp3
+        final String filteredClipDir = filteredFolderDir.path + '/${answerIndex.value}_${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
+        final String adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
+        // if filtered clip does not exist...
+        bool isFilteredClipExist = await File(filteredClipDir).exists();
+        if(!isFilteredClipExist) {
+          // make filtered audio clip
+          // separated arguments for applying eq filter into clipped audio
+          // -y : force overwrite temp files
+          // -vn : skip inclusion of video stream, which might cause error with files such as m4a or more.
+          var arguments2 = ["-y", "-i", adjustedClipDir, "-af", "equalizer=f=$centerFreq:t=q:w=${globals.sessionQFactor}:g=$gain", "-vn", filteredClipDir];
+          // applying filter to clipped audio
+          await FFmpegKit.executeWithArguments(arguments2);
+        }
 
         // add filtered audio to finalAudioSourceList
         finalAudioSourceList.add(AudioSource.uri(Uri.parse(filteredClipDir)));
@@ -502,7 +503,6 @@ class SessionPageManager {
     }
     filteredAudioSource = ConcatenatingAudioSource(children: finalAudioSourceList);
     filteredPlayer.setAudioSource(filteredAudioSource);
-    print("converted");
   }
 
   //
