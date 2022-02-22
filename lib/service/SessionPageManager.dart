@@ -1,13 +1,10 @@
 import 'dart:io';
 import 'dart:math';
-import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
+import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'package:eqtrainer/globals.dart' as globals;
 
@@ -34,6 +31,10 @@ class SessionPageManager {
 
   // Flag to notify sessionPage that data is updating
   final updateFlag = ValueNotifier<bool>(true);
+  // Flag to notify sessionPage that data is updating
+  final adjustingFlag = ValueNotifier<bool>(true);
+  // Flag to notify sessionPage that data is updating
+  final filteringFlag = ValueNotifier<bool>(true);
 
   // this contains index of selected audio clip from list of AudioFileIndex.
   final selectedAudioIndex = ValueNotifier<int>(0);
@@ -76,11 +77,16 @@ class SessionPageManager {
     // ...and convert graph vertex's x axis value to frequency value. this will be center frequency for graph.
     await convertToFrequency();
 
+    documentDir = await getApplicationDocumentsDirectory();
+    tempDir = await getTemporaryDirectory();
+    // this will create /adjusted directory in app document directory, if this does not exist.
+    adjustedFolderDir = await Directory(documentDir.path + '/adjusted').create(recursive: true);
+    // this will create /filtered directory in app temporary directory, if this does not exist.
+    filteredFolderDir = await Directory(tempDir.path + '/filtered').create(recursive: true);
+
     // setting audio source for each players (player for original audio, and filtered audio)
     // setFilteredAudioSource function includes creating filtered audio from original audio.
     await setOriginalAudioSource();
-
-    tempDir = await getTemporaryDirectory();
 
     await setFilteredAudioSource();
 
@@ -404,28 +410,45 @@ class SessionPageManager {
     }
   }
 
+  late Directory documentDir;
+  // temp directory for filtered audio.
+  // updated only once with setOriginalAudioSource.
+  late Directory tempDir;
+  // complete directory of clipped audio file & filtered audio clip.
+  // updated only once in init function.
+  late String filteredClipDir;
+  late String adjustedClipDir;
+
+  late Directory adjustedFolderDir;
+  late Directory filteredFolderDir;
+
   // Original Audio Source Updater
-  // This will convert list of clipped audio file, into list of AudioSource.
+  // This will adjust volume of clipped audio file to prevent clipping.
   // ...and apply it to ConcatenatingAudioSource list for originalPlayer.
+  // If adjusted clip already exists, it will use the existing file.
   Future<void> setOriginalAudioSource() async {
     List<AudioSource> finalAudioSourceList = [];
     for(int index = 0; index < globals.playlistData.length; ++index) {
       // Creating list of AudioSource
       if(globals.playlistData[index].enabled) {
-        finalAudioSourceList.add(AudioSource.uri(Uri.parse(globals.playlistData[index].directory)));
+        // Check if adjusted clip already exists.
+        // adjusted clip name format : <GainValue>_<startPointinMSec>_<endPointinMSec>_<fileName>.
+        adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
+        bool isAdjustedClipExist = await File(adjustedClipDir).exists();
+        // if adjusted clip does not exist...
+        if(!isAdjustedClipExist) {
+          // Creating volume adjusted clip
+          // Actually lowering ({user chosen gain value} + 2dB), just in case...
+          var argumentLowerVolume = ["-i", (globals.playlistData[index].directory), "-filter:a", "volume=-${(globals.sessionGain + 2)}dB", "-vn", adjustedClipDir];
+          await FFmpegKit.executeWithArguments(argumentLowerVolume);
+        }
+
+        finalAudioSourceList.add(AudioSource.uri(Uri.parse(adjustedClipDir)));
       }
     }
     originalAudioSource = ConcatenatingAudioSource(children: finalAudioSourceList);
     originalPlayer.setAudioSource(originalAudioSource);
   }
-
-  // temp directory for filtered audio.
-  // updated only once with setOriginalAudioSource.
-  late Directory tempDir;
-  // complete directory of clipped audio file & filtered audio clip
-  late String filteredClipDir;
-  // format / file extension of audio clip trying to filter.
-  late String clipFormat;
 
   // Filtered Audio Source Updater
   // This will apply eq filter to each enabled audio clips from list of AudioFileIndex and make temp files.
@@ -463,43 +486,23 @@ class SessionPageManager {
           }
         }
 
-        // extracting file format from its directory
-        for(int charIndex = globals.playlistData[index].directory.length - 1; charIndex >= 0; --charIndex) {
-          if(globals.playlistData[index].directory[charIndex] == '.') {
-            clipFormat = globals.playlistData[index].directory.substring(charIndex + 1, globals.playlistData[index].directory.length);
-            break;
-          }
-        }
-
         // complete directory of filtered audio clip - ex) tempdir/filtered0.mp3
-        filteredClipDir = tempDir.path + '/filtered' + index.toString() + '.' + clipFormat;
-
+        filteredClipDir = tempDir.path + '/filtered' + index.toString() + '.' + globals.playlistData[index].fileFormat;
+        // make filtered audio clip
         // separated arguments for applying eq filter into clipped audio
         // -y : force overwrite temp files
         // -vn : skip inclusion of video stream, which might cause error with files such as m4a or more.
-        var arguments2 = ["-y", "-i", globals.playlistData[index].directory, "-af", "equalizer=f=$centerFreq:t=q:w=${globals.sessionQFactor}:g=$gain", "-vn", filteredClipDir];
+        var arguments2 = ["-y", "-i", adjustedClipDir, "-af", "equalizer=f=$centerFreq:t=q:w=${globals.sessionQFactor}:g=$gain", "-vn", filteredClipDir];
         // applying filter to clipped audio
-        FFmpegKit.executeWithArgumentsAsync((arguments2), (session) async {
-          final returnCode = await session.getReturnCode();
-          // if it's canceled or error occurred
-          if(!ReturnCode.isSuccess(returnCode)) {
-            GetSnackBar(
-              icon: const Icon(Icons.error),
-              title: tr("SNACKBAR_ERROR_FFMPEG_TITLE"),
-              message: tr("SNACKBAR_ERROR_FFMPEG_MESSAGE"),
-              duration: const Duration(seconds: 2),
-              snackPosition: SnackPosition.TOP,
-            );
-          }
-          print(session.getOutput);
-        });
+        await FFmpegKit.executeWithArguments(arguments2);
+
         // add filtered audio to finalAudioSourceList
         finalAudioSourceList.add(AudioSource.uri(Uri.parse(filteredClipDir)));
       }
     }
     filteredAudioSource = ConcatenatingAudioSource(children: finalAudioSourceList);
     filteredPlayer.setAudioSource(filteredAudioSource);
-    //print("converted");
+    print("converted");
   }
 
   //

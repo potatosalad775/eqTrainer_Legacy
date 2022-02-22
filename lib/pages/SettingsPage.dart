@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eqtrainer/service/ThemeService.dart';
 import 'package:eqtrainer/service/UpgradeService.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -55,6 +58,7 @@ class SettingsPage extends StatelessWidget {
                 SettingCardLanguage(),
                 DonationCard(),
                 ContactDevCard(),
+                WipeCacheCard(),
                 UpdateCard(),
                 OpenSourceLicenseCard()
               ],
@@ -326,6 +330,75 @@ class ContactDevCard extends StatelessWidget {
               ],
             ),
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 5, 0),
+            horizontalTitleGap: 0,
+          )
+      ),
+    );
+  }
+}
+
+class WipeCacheCard extends StatelessWidget {
+  const WipeCacheCard({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+      child: Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)
+          ),
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          child: ListTile(
+            leading: Icon(
+              Icons.delete,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            title: Text(
+              'SETTINGS_WIPE_CACHE',
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.onSurface
+              ),
+            ).tr(),
+            // DropDownMenu
+            trailing: Icon(
+              Icons.arrow_forward,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            onTap: () async {
+              Directory documentDir = await getApplicationDocumentsDirectory();
+              Directory tempDir = await getTemporaryDirectory();
+
+              try {
+                if(Directory(documentDir.path + "/adjusted").existsSync()) {
+                  Directory(documentDir.path + "/adjusted").deleteSync(recursive: true);
+                }
+                if(Directory(tempDir.path + "/filtered").existsSync()) {
+                  Directory(tempDir.path + "/filtered").deleteSync(recursive: true);
+                }
+                Get.showSnackbar(
+                  GetSnackBar(
+                    icon: const Icon(Icons.check_circle),
+                    title: tr("SNACKBAR_CACHE_WIPED_TITLE"),
+                    message: tr("SNACKBAR_CACHE_WIPED_MESSAGE"),
+                    duration: const Duration(seconds: 2),
+                    snackPosition: SnackPosition.TOP,
+                  )
+                );
+              } catch(e) {
+                Get.showSnackbar(
+                  GetSnackBar(
+                    icon: const Icon(Icons.cancel),
+                    title: tr("SNACKBAR_CACHE_WIPE_FAILED_TITLE"),
+                    message: e.toString(),
+                    duration: const Duration(seconds: 2),
+                    snackPosition: SnackPosition.TOP,
+                  )
+                );
+              }
+            },
+            contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
             horizontalTitleGap: 0,
           )
       ),

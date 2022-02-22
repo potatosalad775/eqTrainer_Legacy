@@ -98,7 +98,7 @@ Future<void> savePlaylist() async {
 int sessionStartingBand = 2;
 List<int> sessionStartingBandList = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 int sessionGain = 6;
-List<int> sessionGainList = [1,2,3,4,5,6,8,10,13,16,20];
+List<int> sessionGainList = [1,2,3,4,5,6,8,10,13,15,20];
 double sessionQFactor = 1;
 List<double> sessionQFactorList = [0.1, 0.25, 0.5, 0.75, 1, 2, 5, 10, 15, 20, 25, 30, 50];
 String sessionFilter = 'Peak & Dip';

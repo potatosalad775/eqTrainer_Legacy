@@ -89,6 +89,11 @@
   "SETTINGS_UPDATE": "앱 버전",
   "SETTINGS_UPDATE_AVAILABLE": "업데이트 가능",
   "SETTINGS_UPDATE_NOTFOUND": "업데이트 발견 안 됨",
+  ## Wipe Cache
+  "SETTINGS_WIPE_CACHE": "캐시 삭제",
+  "SNACKBAR_CACHE_WIPED_TITLE": "캐시 삭제 완료",
+  "SNACKBAR_CACHE_WIPED_MESSAGE": "캐시가 삭제되었습니다",
+  "SNACKBAR_CACHE_WIPE_FAILED_TITLE": "캐시 삭제 실패",
 
   ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
   ## Page Disclaimer
@@ -139,5 +144,6 @@
   "HELP_FILTER": "'필터' 모드는 세션 중 사용할 EQ 필터가 원음을 부스트할지(Peak), 아니면 컷할지(Dip)를 결정합니다. EQ 필터가 소리를 부스트하거나 컷할 수 있도록(Peak & Dip) 설정할 수도 있습니다.",
   "HELP_POINTLIMIT": "'포인트 제한선'은 세션이 진행되는 중 사용자의 결과에 따라 초기 밴드값을 증감하는데 영향을 미칩니다. 정답/오답을 고를 때마다, '포인트'가 1씩 오르거나 내려갑니다. 만약 포인트의 절댓값이 '포인트 제한선'에 도달한다면 밴드값이 1씩 줄거나 늘어나고, '포인트'는 0으로 초기화됩니다.",
   "HELP_DISCLAIMER_SESSION": "세션 중 그려지는 그래프는 참고용으로, EQ 필터의 모양을 정확하게 재현하지 않습니다.",
+  "HELP_DISCLAIMER_GAIN": "오디오 클립이 EQ 필터에 의해 클리핑되는 것을 방지하기 위해, 사용자가 정한 게인값 + 2dB만큼의 볼륨을 줄이고 시작합니다.",
   "HELP_DISCLAIMER_PLAYLIST": "플레이리스트는 가능한 짧게 유지할 것을 권장합니다. 플레이리스트가 길어질수록, 매번 세션을 시작할 때마다 더 긴 시간을 기다려야합니다. 플레이리스트 관리 화면에 있는 오디오 클립을 비활성화하면 클립을 삭제하지 않고도 플레이리스트를 짧게 유지할 수 있습니다.",
 }

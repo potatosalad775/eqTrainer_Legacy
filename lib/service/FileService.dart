@@ -1,11 +1,7 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:duration/duration.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_audio/return_code.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:eqtrainer/globals.dart' as globals;
 
 class FileService {
@@ -23,9 +19,19 @@ class FileService {
     // fetching application's document directory
     documentDir = await getApplicationDocumentsDirectory();
     // this will create /audio directory in app document directory, if this does not exist.
-    Directory newDirectory = await Directory(documentDir.path + '/audio').create(recursive: true);
-    // complete directory of clipped audio file - ex) documentDir/audio/temp0.mp3
+    Directory newDirectory = await Directory(documentDir.path + '/original').create(recursive: true);
+    // complete directory of clipped original audio file - ex) documentDir/original/filename.mp3
     clipDir = newDirectory.path + '/' + fileName;
+
+    // String value for the name of file Format.
+    late String clipFormat;
+    // extracting file format from its directory
+    for(int charIndex = fileDirectory.length - 1; charIndex >= 0; --charIndex) {
+      if(fileDirectory[charIndex] == '.') {
+        clipFormat = fileDirectory.substring(charIndex + 1, fileDirectory.length);
+        break;
+      }
+    }
 
     // ffmpeg will clip & copy audio file into application's document directory.
     clipStartMSec = '${startPoint.inMilliseconds}ms';
@@ -36,23 +42,10 @@ class FileService {
     // -ss clipStartSec ~ -to clipDurationSec : cutting audio into clip, starting from clipStartSec with duration of clipDurationSec
     var arguments1 = ["-y", "-i", fileDirectory, "-vn", "-ss", clipStartMSec, "-to", clipDurationMSec, clipDir];
     // clipping original audio
-    FFmpegKit.executeWithArgumentsAsync((arguments1), (session) async {
-      final returnCode = await session.getReturnCode();
-      // if it's canceled or error occurred
-      if(!ReturnCode.isSuccess(returnCode)) {
-        GetSnackBar(
-          icon: const Icon(Icons.error),
-          title: tr("SNACKBAR_ERROR_FFMPEG_TITLE"),
-          message: tr("SNACKBAR_ERROR_FFMPEG_MESSAGE"),
-          duration: const Duration(seconds: 2),
-          snackPosition: SnackPosition.TOP,
-        );
-      }
-      print(session.getOutput);
-    });
+    FFmpegKit.executeWithArguments(arguments1);
 
     // update globals.playlistData
-    globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint));
+    globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint, clipFormat));
   }
 }
 
@@ -68,6 +61,8 @@ class AudioFileIndex {
   // ... so it automatically play certain section of audio file during session.
   Duration startPoint;
   Duration endPoint;
+  // File Format name
+  String fileFormat;
 
   AudioFileIndex(
     this.enabled,
@@ -75,6 +70,7 @@ class AudioFileIndex {
     this.directory,
     this.startPoint,
     this.endPoint,
+    this.fileFormat
   );
 
   factory AudioFileIndex.fromJson(Map<String, dynamic> parsedJson){
@@ -84,6 +80,7 @@ class AudioFileIndex {
       parsedJson["directory"],
       parseTime(parsedJson["startPoint"]),
       parseTime(parsedJson["endPoint"]),
+      parsedJson["fileFormat"],
     );
   }
 
@@ -93,5 +90,6 @@ class AudioFileIndex {
     'directory': directory,
     'startPoint': startPoint.toString(),
     'endPoint': endPoint.toString(),
+    'fileFormat': fileFormat,
   };
 }

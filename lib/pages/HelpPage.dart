@@ -60,6 +60,12 @@ class HelpPage extends StatelessWidget {
           ).tr(),
           const SizedBox(height: 15,),
           Text(
+            'HELP_DISCLAIMER_GAIN',
+            style: TextStyle(color: Theme.of(context).colorScheme.onBackground,),
+            textAlign: TextAlign.start,
+          ).tr(),
+          const SizedBox(height: 15,),
+          Text(
             'HELP_DISCLAIMER_PLAYLIST',
             style: TextStyle(color: Theme.of(context).colorScheme.onBackground,),
             textAlign: TextAlign.start,

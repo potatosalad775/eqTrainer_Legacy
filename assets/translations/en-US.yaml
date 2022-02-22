@@ -89,6 +89,11 @@
   "SETTINGS_UPDATE": "Version",
   "SETTINGS_UPDATE_AVAILABLE": "Update Available",
   "SETTINGS_UPDATE_NOTFOUND": "No Update Found",
+  ## Wipe Cache
+  "SETTINGS_WIPE_CACHE": "Wipe Cache",
+  "SNACKBAR_CACHE_WIPED_TITLE": "Cache Wiped",
+  "SNACKBAR_CACHE_WIPED_MESSAGE": "Successfully Wiped Cache.",
+  "SNACKBAR_CACHE_WIPE_FAILED_TITLE": "Failed at Wiping Cache",
 
   ## AUDIO PREVIEW (AUDIO CLIP EDITOR) PAGE
   ## Page Disclaimer
@@ -139,5 +144,6 @@
   "HELP_FILTER": "'Filter' modes affect whether your audio clip is boosted(Peak) or cut(Dip). You can make the filter to either boost or cut original audio clips.(Peak & Dip).",
   "HELP_POINTLIMIT": "'Point Limit' will control the number of bands, depending your session performance. As you choose correct/incorrect answers, the 'Round Point' will be increased/decreased by 1. if your point's absolute value hits the 'Point Limit', the number of bands will be increased/decreased by 1 and the 'Round Point' will be reset to 0.",
   "HELP_DISCLAIMER_SESSION": "the Graphs shown during session DOES NOT accurately represents how EQ Filter looks alike.",
+  "HELP_DISCLAIMER_GAIN": "To prevent audio clips from clipping, eqTrainer lowers the audio clip's volume by your 'Gain value + 2dB'.",
   "HELP_DISCLAIMER_PLAYLIST": "It is recommended to keep your playlist as short as possible. the longer your playlist is, the longer you have to wait for every session. Simply disabling audio clips on 'Playlist Configuration Page' shortens your playlist without deleting it.",
 }
