@@ -439,7 +439,7 @@ class SessionPageManager {
           await FFmpegKit.executeWithArguments(argumentLowerVolume);
         }
 
-        finalAudioSourceList.add(AudioSource.uri(Uri.parse(adjustedClipDir)));
+        finalAudioSourceList.add(AudioSource.uri(Uri.file(adjustedClipDir)));
       }
     }
     originalAudioSource = ConcatenatingAudioSource(children: finalAudioSourceList);
@@ -498,7 +498,7 @@ class SessionPageManager {
         }
 
         // add filtered audio to finalAudioSourceList
-        finalAudioSourceList.add(AudioSource.uri(Uri.parse(filteredClipDir)));
+        finalAudioSourceList.add(AudioSource.uri(Uri.file(filteredClipDir)));
       }
     }
     filteredAudioSource = ConcatenatingAudioSource(children: finalAudioSourceList);

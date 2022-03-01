@@ -44,12 +44,23 @@ class _AudioPreviewState extends State<AudioPreview> {
     audioPlayer = previewPage.audioPlayer;
 
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.audio,
+      type: FileType.custom,
+      allowedExtensions: [
+        'wav',
+        'aiff',
+        'alac',
+        'flac',
+        'mp3',
+        'aac',
+        'wma',
+        'ogg',
+        'm4a'
+      ],
       allowMultiple: false,
     );
     if(result != null) {
       try {
-        var duration = await audioPlayer.setUrl(result.files.single.path.toString());
+        var duration = await audioPlayer.setFilePath(result.files.single.path.toString());
         // updating index cache with selected Audio file's index
         previewPage.selectedAudioIndex = AudioFileIndex(
           true,
