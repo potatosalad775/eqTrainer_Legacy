@@ -24,8 +24,13 @@ improve their critical listening skills.
 
 ## Download and Install
 
-Currently, You can download eqTrainer APK directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
+### Android
+Currently, You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
 Publication Pending on Google Play Store.
+
+### iOS
+You can download eqTrainer IPA file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases). eqTrainer will NOT be publicated on Apple Appstore.    
+You need to sign eqTrainer app with your own Apple ID. Use [AltStore](https://altstore.io/).
 
 ## Translation   
 eqTrainer supports multiple languages.
