@@ -15,11 +15,12 @@ class FileService {
 
   // this function will clip audio and copy it into app's document directory.
   Future<void> clipAudio(String fileName, String fileDirectory, Duration startPoint, Duration endPoint) async {
+    print("hi");
     // this will create /audio directory in app document directory, if this does not exist.
-    Directory newDirectory = await Directory(globals.appDocumentDirectory.path).create(recursive: true);
+    Directory newDirectory = await Directory(globals.appDocumentDirectory.path + '/original').create(recursive: true);
     // complete directory of clipped original audio file - ex) documentDir/original/filename.mp3
     clipDirAfterDocumentDir = '/original/${startPoint.inMilliseconds}_${endPoint.inMilliseconds}_$fileName';
-    clipDir = newDirectory.path + clipDirAfterDocumentDir;
+    clipDir = newDirectory.path + '/${startPoint.inMilliseconds}_${endPoint.inMilliseconds}_$fileName';
 
     // ffmpeg will clip & copy audio file into application's document directory.
     clipStartMSec = '${startPoint.inMilliseconds}ms';
@@ -33,10 +34,12 @@ class FileService {
       var arguments1 = ["-y", "-i", fileDirectory, "-vn", "-ss", clipStartMSec, "-to", clipDurationMSec, clipDir];
       // clipping original audio
       FFmpegKit.executeWithArguments(arguments1);
+      print("hi");
     }
 
     // update globals.playlistData
     globals.playlistData.add(AudioFileIndex(true, fileName, clipDirAfterDocumentDir, startPoint, endPoint));
+    print("hi");
   }
 }
 
