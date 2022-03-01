@@ -321,7 +321,8 @@ class _PopUpPlayerState extends State<PopUpPlayer> {
   void initState() {
     popupPlayerPage = AudioPageManager();
     audioPlayer = popupPlayerPage.audioPlayer;
-    audioPlayer.setUrl(globals.playlistData[widget.index].directory);
+    audioPlayer.setFilePath(globals.appDocumentDirectory.path + globals.playlistData[widget.index].directory);
+    print(globals.playlistData[widget.index].directory);
     super.initState();
   }
   

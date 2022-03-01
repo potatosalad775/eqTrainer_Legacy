@@ -12,13 +12,20 @@ import 'package:eqtrainer/service/ThemeService.dart';
 import 'package:eqtrainer/pages/ResultPage.dart';
 import 'package:eqtrainer/data/themeData.dart';
 import 'package:eqtrainer/service/UpgradeService.dart';
+import 'package:eqtrainer/globals.dart' as globals;
 
 void main() async {
+  // initialize getStorage for theme / language key-value
   await GetStorage.init();
+  // initialize localization module
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  // set rotation locked to vertical
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  // check update
   UpgradeService().checkUpgrade();
+  // get app's document directory containing audio clips.
+  globals.getDocumentDirectory();
 
   runApp(EasyLocalization(
     path: 'assets/translations',

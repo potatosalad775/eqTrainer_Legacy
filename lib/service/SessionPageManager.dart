@@ -4,7 +4,6 @@ import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:eqtrainer/globals.dart' as globals;
 
@@ -77,11 +76,11 @@ class SessionPageManager {
     // ...and convert graph vertex's x axis value to frequency value. this will be center frequency for graph.
     await convertToFrequency();
 
-    documentDir = await getApplicationDocumentsDirectory();
     // this will create /adjusted directory in app document directory, if this does not exist.
-    adjustedFolderDir = await Directory(documentDir.path + '/adjusted').create(recursive: true);
+    adjustedFolderDir = await Directory(globals.appDocumentDirectory.path + '/adjusted').create(recursive: true);
     // this will create /filtered directory in app temporary directory, if this does not exist.
-    filteredFolderDir = await Directory(documentDir.path + '/filtered').create(recursive: true);
+    filteredFolderDir = await Directory(globals.appDocumentDirectory.path + '/filtered').create(recursive: true);
+
 
     // setting audio source for each players (player for original audio, and filtered audio)
     // setFilteredAudioSource function includes creating filtered audio from original audio.
@@ -433,9 +432,10 @@ class SessionPageManager {
         // if adjusted clip does not exist...
         bool isAdjustedClipExist = await File(adjustedClipDir).exists();
         if(!isAdjustedClipExist) {
+          String clipDir = globals.appDocumentDirectory.path + globals.playlistData[index].directory;
           // Creating volume adjusted clip
           // Actually lowering ({user chosen gain value} + 2dB), just in case...
-          var argumentLowerVolume = ["-i", (globals.playlistData[index].directory), "-filter:a", "volume=-${(globals.sessionGain + 2)}dB", "-vn", adjustedClipDir];
+          var argumentLowerVolume = ["-i", clipDir, "-filter:a", "volume=-${(globals.sessionGain + 2)}dB", "-vn", adjustedClipDir];
           await FFmpegKit.executeWithArguments(argumentLowerVolume);
         }
 

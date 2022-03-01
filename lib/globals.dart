@@ -94,6 +94,15 @@ Future<void> savePlaylist() async {
   }
 }
 
+late Directory appDocumentDirectory;
+Future<void> getDocumentDirectory() async {
+  if(Platform.isAndroid) {
+    appDocumentDirectory = await getApplicationDocumentsDirectory();
+  } else if(Platform.isIOS) {
+    appDocumentDirectory = await getLibraryDirectory();
+  }
+}
+
 // variables for initializing session
 int sessionStartingBand = 2;
 List<int> sessionStartingBandList = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];

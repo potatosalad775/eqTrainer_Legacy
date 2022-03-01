@@ -1,27 +1,25 @@
 import 'dart:io';
 import 'package:duration/duration.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:ffmpeg_kit_flutter_audio/ffmpeg_kit.dart';
 import 'package:eqtrainer/globals.dart' as globals;
 
 class FileService {
-  // document Directory of eq_trainer application.
-  // this will be used to store audio clip.
-  late Directory documentDir;
   // complete directory of clipped audio file
   late String clipDir;
+  // clipped audio file's directory AFTER document directory.
+  // we are NOT saving full directory since iOS Devices constantly change application directory upon update or installation.
+  late String clipDirAfterDocumentDir;
   // time stamps required for clipping audio with ffmpeg_flutter.
   late String clipStartMSec;
   late String clipDurationMSec;
 
   // this function will clip audio and copy it into app's document directory.
   Future<void> clipAudio(String fileName, String fileDirectory, Duration startPoint, Duration endPoint) async {
-    // fetching application's document directory
-    documentDir = await getApplicationDocumentsDirectory();
     // this will create /audio directory in app document directory, if this does not exist.
-    Directory newDirectory = await Directory(documentDir.path + '/original').create(recursive: true);
+    Directory newDirectory = await Directory(globals.appDocumentDirectory.path).create(recursive: true);
     // complete directory of clipped original audio file - ex) documentDir/original/filename.mp3
-    clipDir = newDirectory.path + '/${startPoint.inMilliseconds}_${endPoint.inMilliseconds}_$fileName';
+    clipDirAfterDocumentDir = '/original/${startPoint.inMilliseconds}_${endPoint.inMilliseconds}_$fileName';
+    clipDir = newDirectory.path + clipDirAfterDocumentDir;
 
     // ffmpeg will clip & copy audio file into application's document directory.
     clipStartMSec = '${startPoint.inMilliseconds}ms';
@@ -38,7 +36,7 @@ class FileService {
     }
 
     // update globals.playlistData
-    globals.playlistData.add(AudioFileIndex(true, fileName, clipDir, startPoint, endPoint));
+    globals.playlistData.add(AudioFileIndex(true, fileName, clipDirAfterDocumentDir, startPoint, endPoint));
   }
 }
 

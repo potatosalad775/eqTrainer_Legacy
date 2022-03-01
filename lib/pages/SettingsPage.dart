@@ -7,7 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:eqtrainer/service/ThemeService.dart';
 import 'package:eqtrainer/service/UpgradeService.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:eqtrainer/globals.dart' as globals;
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -367,14 +367,12 @@ class WipeCacheCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
             onTap: () async {
-              Directory documentDir = await getApplicationDocumentsDirectory();
-
               try {
-                if(Directory(documentDir.path + "/adjusted").existsSync()) {
-                  Directory(documentDir.path + "/adjusted").deleteSync(recursive: true);
+                if(Directory(globals.appDocumentDirectory.path + "/adjusted").existsSync()) {
+                  Directory(globals.appDocumentDirectory.path + "/adjusted").deleteSync(recursive: true);
                 }
-                if(Directory(documentDir.path + "/filtered").existsSync()) {
-                  Directory(documentDir.path + "/filtered").deleteSync(recursive: true);
+                if(Directory(globals.appDocumentDirectory.path + "/filtered").existsSync()) {
+                  Directory(globals.appDocumentDirectory.path + "/filtered").deleteSync(recursive: true);
                 }
                 Get.showSnackbar(
                   GetSnackBar(
