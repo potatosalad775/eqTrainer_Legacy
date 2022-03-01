@@ -271,7 +271,7 @@ class DonationCard extends StatelessWidget {
             ),
             onTap: () {
               (context.locale == const Locale('ko', 'KR'))
-                  ? launch('https://toss.me/감자샐러드')
+                  ? launch('https://toss.me/%EA%B0%90%EC%9E%90%EC%83%90%EB%9F%AC%EB%93%9C')
                   : launch('https://paypal.me/potatosalad775');
             },
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
