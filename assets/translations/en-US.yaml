@@ -79,7 +79,10 @@
   "LANG_ENGLISH": "English",
   "LANG_KOREAN": "Korean",
   ## Donate
-  "SETTINGS_DONATE": "Donate",
+  ## Donate button, not so donate-able - thanks to google play policy
+  ## This should resemble the button will take user to 'eqTrainer Github page'.
+  "SETTINGS_DONATE": "Github",
+  ## Contact Dev
   "SETTINGS_DEV": "Developer",
   ## Update
   "ALERT_UPDATE_FOUND_TITLE": "New App Update Found",

@@ -56,10 +56,10 @@ class SettingsPage extends StatelessWidget {
               children: const <Widget>[
                 SettingCardDarkMode(),
                 SettingCardLanguage(),
-                DonationCard(),
-                ContactDevCard(),
                 WipeCacheCard(),
                 UpdateCard(),
+                ContactDevCard(),
+                DonationCard(),
                 OpenSourceLicenseCard()
               ],
             ),
@@ -240,6 +240,7 @@ class _SettingCardLanguageState extends State<SettingCardLanguage> {
   }
 }
 
+// Donation Card Not so donate-able, thanks to Google Play Policy
 class DonationCard extends StatelessWidget {
   const DonationCard({Key? key}) : super(key: key);
 
@@ -253,8 +254,8 @@ class DonationCard extends StatelessWidget {
           ),
           color: Theme.of(context).colorScheme.surfaceVariant,
           child: ListTile(
-            leading: Icon(
-              Icons.favorite,
+            leading: FaIcon(
+              FontAwesomeIcons.github,
               color: Theme.of(context).colorScheme.onSurface,
             ),
             title: Text(
@@ -270,9 +271,7 @@ class DonationCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
             onTap: () {
-              (context.locale == const Locale('ko', 'KR'))
-                  ? launch('https://toss.me/%EA%B0%90%EC%9E%90%EC%83%90%EB%9F%AC%EB%93%9C')
-                  : launch('https://paypal.me/potatosalad775');
+              launch('https://github.com/potatosalad775/eqTrainer');
             },
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
             horizontalTitleGap: 0,
