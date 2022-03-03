@@ -30,89 +30,91 @@ class _ResultPageState extends State<ResultPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: const Text("HEADLINE_RESULT_PAGE").tr(),
-        titleSpacing: 0,
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
-        foregroundColor: Theme.of(context).colorScheme.onBackground,
-        elevation: 1,
-      ),
-      body: Column(
-        children: <Widget>[
-          // Card with Score per Frequency Range
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              itemCount: 7,
-              itemBuilder: (BuildContext context, int index) {
-                return ResultPerFreqCard(
-                  index: index,
-                );
-              },
+        appBar: AppBar(
+          leading: const BackButton(),
+          title: const Text("HEADLINE_RESULT_PAGE").tr(),
+          titleSpacing: 0,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          foregroundColor: Theme.of(context).colorScheme.onBackground,
+          elevation: 1,
+        ),
+        body: Column(
+          children: <Widget>[
+            // Card with Score per Frequency Range
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                itemCount: 7,
+                itemBuilder: (BuildContext context, int index) {
+                  return ResultPerFreqCard(
+                    index: index,
+                  );
+                },
+              ),
             ),
-          ),
-          // Card with Total Score
-          Container(
-            padding: const EdgeInsets.all(20),
-            color: Theme.of(context).colorScheme.secondary,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  "BOTTOM_BAR_RESULT_TOTAL",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
-                ).tr(),
-                (totalCorrectScore + totalIncorrectScore != 0)
-                // if user completed at least one round
-                ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      '${totalCorrectScore * 100 ~/ (totalCorrectScore + totalIncorrectScore)}%',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
+            // Card with Total Score
+            Container(
+              padding: const EdgeInsets.all(20),
+              color: Theme.of(context).colorScheme.secondary,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "BOTTOM_BAR_RESULT_TOTAL",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
                     ),
-                    const SizedBox(height: 3),
-                    Text(
-                      tr(
-                        "BOTTOM_BAR_RESULT_SCORELIST",
-                        namedArgs: {
-                          'correctScore': totalCorrectScore.toString(),
-                          'incorrectScore': totalIncorrectScore.toString(),
-                          'totalScore': (totalCorrectScore + totalIncorrectScore).toString(),
-                        },
+                  ).tr(),
+                  (totalCorrectScore + totalIncorrectScore != 0)
+                  // if user completed at least one round
+                  ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        '${totalCorrectScore * 100 ~/ (totalCorrectScore + totalIncorrectScore)}%',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Theme.of(context).colorScheme.onSecondary,
-                      ),
-                    )
-                  ],
-                )
-                // ...else
-                : Text(
-                  "BOTTOM_BAR_RESULT_NOTTESTED",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                  ),
-                ).tr()
-              ],
-            ),
-          )
-        ],
+                      const SizedBox(height: 3),
+                      Text(
+                        tr(
+                          "BOTTOM_BAR_RESULT_SCORELIST",
+                          namedArgs: {
+                            'correctScore': totalCorrectScore.toString(),
+                            'incorrectScore': totalIncorrectScore.toString(),
+                            'totalScore': (totalCorrectScore + totalIncorrectScore).toString(),
+                          },
+                        ),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                      )
+                    ],
+                  )
+                  // ...else
+                  : Text(
+                    "BOTTOM_BAR_RESULT_NOTTESTED",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ).tr()
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
