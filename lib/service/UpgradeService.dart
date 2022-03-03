@@ -11,7 +11,7 @@ bool isUpdateAvailable = false;
 // TODO: Update Version Info for every Release Update
 int versionMAJOR = 1;
 int versionMINOR = 0;
-int versionPATCH = 4;
+int versionPATCH = 5;
 
 // Version Fetched from Github API
 late int latestVersionMajor;
