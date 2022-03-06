@@ -25,12 +25,14 @@ improve their critical listening skills.
 ## Download and Install
 
 ### Android
-Currently, You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
-Publication Pending on Google Play Store.
-
+<a href='https://play.google.com/store/apps/details?id=kr.potatosalad.eqtrainer.eqtrainer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='200'/></a>   
+eqTrainer is available for download on Google Play Store!   
+Or, You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
+   
 ### iOS
-You can download eqTrainer IPA file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases). eqTrainer will NOT be publicated on Apple Appstore.    
-You need to sign eqTrainer app with your own Apple ID. Use [AltStore](https://altstore.io/).   
+eqTrainer will NOT be publicated on Apple Appstore. You can download eqTrainer IPA file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).    
+You need to sign eqTrainer app with your own Apple ID. You can use [AltStore](https://altstore.io/).   
+
 If you are more familiar with Korean, You can check out [my blog article](https://blog.naver.com/fishnchips775/222661858363) describing how to install it.
 
 ## Translation   
