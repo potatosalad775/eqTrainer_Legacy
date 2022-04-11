@@ -40,6 +40,9 @@ eqTrainer supports multiple languages.
 If you are interested in translating this app into your language,
 Please translate [en_US.yaml][ENG_YAML_LINK] file and send it to <transaction@kakao.com>. 
 
+## To Do (in Works)
+* Landscape Mode
+
 ---------------------
 
 This is my first flutter project. this project might require some refactoring and refining.     
