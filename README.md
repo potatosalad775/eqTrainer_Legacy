@@ -30,6 +30,11 @@ eqTrainer is available for download on Google Play Store!
 Or, You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
    
 ### iOS
+
+#### (IMPORTANT)
+**IPA builds for iOS will not be updated until further notice. I had to return my borrowed Mac back to University. Sorry!**    
+**Latest iOS Build Release - [v1.0.4 (22/03/02)](https://github.com/potatosalad775/eqTrainer/releases/tag/v1.0.4)**
+
 eqTrainer will NOT be publicated on Apple Appstore. You can download eqTrainer IPA file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).    
 You need to sign eqTrainer app with your own Apple ID. You can use [AltStore](https://altstore.io/).   
 
