@@ -106,6 +106,76 @@ class _ChartWidgetState extends State<ChartWidget> {
     super.dispose();
   }
 
+  Widget leftTitleWidget(double value, TitleMeta meta) {
+    var style = TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant);
+    String text;
+    if(value.abs() == 2) {
+      if(value < 0) {
+        text = '${0 - tempGain}';
+      } else {
+        text = '$tempGain';
+      }
+    }
+    else if(value.abs() == 0) {
+      text = '0';
+    }
+    else {
+      return Container();
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 5,
+      angle: 4.712,
+      child: Text(text, style: style,)
+    );
+  }
+
+  Widget bottomTitleWidget(double value, TitleMeta meta) {
+    var style = TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant);
+    String text;
+    switch (value.toInt()) {
+      case 59:
+        text = '20';
+        break;
+      case 137:
+        text = '50';
+        break;
+      case 197:
+        text = '100';
+        break;
+      case 256:
+        text = '200';
+        break;
+      case 335:
+        text = '500';
+        break;
+      case 394:
+        text = '1k';
+        break;
+      case 452:
+        text = '2k';
+        break;
+      case 531:
+        text = '5k';
+        break;
+      case 590:
+        text = '10k';
+        break;
+      case 650:
+        text = '20k';
+        break;
+      default:
+        return Container();
+    }
+
+    return SideTitleWidget(
+      space: 1,
+      axisSide: meta.axisSide,
+      child: Text(text, style: style,)
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -212,74 +282,23 @@ class _ChartWidgetState extends State<ChartWidget> {
                           // Axis Titles
                           titlesData: FlTitlesData(
                             show: true,
-                            rightTitles: SideTitles(showTitles: false),
-                            topTitles: SideTitles(showTitles: false),
-                            leftTitles: SideTitles(
+                            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
                                 showTitles: true,
                                 reservedSize: 20,
-                                textAlign: TextAlign.center,
-                                rotateAngle: -90,
-                                getTitles: (value) {
-                                  // we aren't using actual gain value to calculate y axis value of graph.
-                                  // each graph's vertex's y axis value is fixed to 2 or -2.
-                                  if(value.abs() == 2 && value < 0) {
-                                    return '${0 - tempGain}';
-                                  }
-                                  if(value.abs() == 0) {
-                                    return '0';
-                                  }
-                                  if(value.abs() == 2 && value > 0) {
-                                    return '$tempGain';
-                                  }
-                                  else {
-                                    return '';
-                                  }
-                                },
-                                getTextStyles: (context, value) {
-                                  return TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                  );
-                                }
+                                getTitlesWidget: leftTitleWidget,
+                              )
                             ),
-                            bottomTitles: SideTitles(
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
                                 showTitles: true,
                                 reservedSize: 20,
-                                interval: 1,
-                                textAlign: TextAlign.center,
-                                margin: 3,
-                                getTitles: (value) {
-                                  // i know it's stupid, but the value below here are
-                                  // calculated from pixel width of H2L program's graph
-                                  switch (value.toInt()) {
-                                    case 59:
-                                      return '20';
-                                    case 137:
-                                      return '50';
-                                    case 197:
-                                      return '100';
-                                    case 256:
-                                      return '200';
-                                    case 335:
-                                      return '500';
-                                    case 394:
-                                      return '1k';
-                                    case 452:
-                                      return '2k';
-                                    case 531:
-                                      return '5k';
-                                    case 590:
-                                      return '10k';
-                                    case 650:
-                                      return '20k';
-                                  }
-                                  return '';
-                                },
-                                getTextStyles: (context, value) {
-                                  return TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                  );
-                                }
-                            ),
+                                interval: 0.5,
+                                getTitlesWidget: bottomTitleWidget,
+                              )
+                            )
                           ),
                           // Actual Graph
                           lineBarsData: sessionManager.graphData,
@@ -326,9 +345,9 @@ class _ChartWidgetState extends State<ChartWidget> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        sessionManager.graphData[previousPickerValue - 1] = sessionManager.graphData[previousPickerValue - 1].copyWith(colors: [Colors.redAccent]);
+                        sessionManager.graphData[previousPickerValue - 1] = sessionManager.graphData[previousPickerValue - 1].copyWith(color: Colors.redAccent);
                         currentPickerValue = value;
-                        sessionManager.graphData[currentPickerValue - 1] = sessionManager.graphData[currentPickerValue - 1].copyWith(colors: [Colors.blueAccent]);
+                        sessionManager.graphData[currentPickerValue - 1] = sessionManager.graphData[currentPickerValue - 1].copyWith(color: Colors.blueAccent);
                         previousPickerValue = value;
                       });
                     },
@@ -524,8 +543,8 @@ class _ChartWidgetState extends State<ChartWidget> {
                           isSelected[0] = true;
                           isSelected[1] = false;
                           // reset graph with blue accent
-                          sessionManager.graphData[currentPickerValue - 1] = sessionManager.graphData[currentPickerValue - 1].copyWith(colors: [Colors.redAccent]);
-                          sessionManager.graphData[0] = sessionManager.graphData[0].copyWith(colors: [Colors.blueAccent]);
+                          sessionManager.graphData[currentPickerValue - 1] = sessionManager.graphData[currentPickerValue - 1].copyWith(color: Colors.redAccent);
+                          sessionManager.graphData[0] = sessionManager.graphData[0].copyWith(color: Colors.blueAccent);
                           // reset picker value
                           currentPickerValue = 1;
                           previousPickerValue = 1;

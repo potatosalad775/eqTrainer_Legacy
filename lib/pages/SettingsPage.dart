@@ -59,7 +59,7 @@ class SettingsPage extends StatelessWidget {
                 WipeCacheCard(),
                 UpdateCard(),
                 ContactDevCard(),
-                DonationCard(),
+                GithubPageCard(),
                 OpenSourceLicenseCard()
               ],
             ),
@@ -240,9 +240,8 @@ class _SettingCardLanguageState extends State<SettingCardLanguage> {
   }
 }
 
-// Donation Card Not so donate-able, thanks to Google Play Policy
-class DonationCard extends StatelessWidget {
-  const DonationCard({Key? key}) : super(key: key);
+class GithubPageCard extends StatelessWidget {
+  const GithubPageCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +258,7 @@ class DonationCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
             title: Text(
-              "SETTINGS_DONATE",
+              "SETTINGS_GITHUB_PROJECT_PAGE",
               style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.onSurface
@@ -271,7 +270,7 @@ class DonationCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.onSurface,
             ),
             onTap: () {
-              launch('https://github.com/potatosalad775/eqTrainer');
+              launchUrl(Uri.parse("https://github.com/potatosalad775/eqTrainer"));
             },
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),
             horizontalTitleGap: 0,
@@ -314,7 +313,7 @@ class ContactDevCard extends StatelessWidget {
                   icon: const FaIcon(FontAwesomeIcons.twitter),
                   color: Theme.of(context).colorScheme.onSurface,
                   onPressed: () {
-                    launch('https://twitter.com/potatosalad775');
+                    launchUrl(Uri.parse("https://twitter.com/potatosalad775"));
                   },
                 ),
                 // email
@@ -323,7 +322,7 @@ class ContactDevCard extends StatelessWidget {
                   icon: const Icon(Icons.mail),
                   color: Theme.of(context).colorScheme.onSurface,
                   onPressed: () {
-                    launch('mailto:transaction@kakao.com');
+                    launchUrl(Uri.parse('mailto:transaction@kakao.com'));
                   },
                 ),
               ],
@@ -491,7 +490,7 @@ class UpdateCard extends StatelessWidget {
             ),
             onTap: () {
               if(isUpdateAvailable) {
-                launch("https://github.com/potatosalad775/eqTrainer/releases/latest");
+                launchUrl(Uri.parse("https://github.com/potatosalad775/eqTrainer/releases/latest"));
               }
             },
             contentPadding: const EdgeInsets.fromLTRB(17, 0, 17, 0),

@@ -10,8 +10,8 @@ bool isUpdateAvailable = false;
 
 // TODO: Update Version Info for every Release Update
 int versionMAJOR = 1;
-int versionMINOR = 0;
-int versionPATCH = 5;
+int versionMINOR = 1;
+int versionPATCH = 0;
 
 // Version Fetched from Github API
 late int latestVersionMajor;
@@ -61,7 +61,7 @@ class UpgradeService {
     }
     latestVersionPatch = int.parse(version.substring(subStringIndex, version.length));
 
-    // if user downloaded this from external source (not playstore), app will send update notice
+    // if user downloaded this from external source (not play store), app will send update notice
     //
     if(!isPlayStore) {
       if(latestVersionMajor > versionMAJOR) {
@@ -112,10 +112,16 @@ class UpdateAlertWidget extends StatelessWidget {
         TextButton(
           child: const Text("ALERT_UPDATE_FOUND_DOWNLOAD").tr(),
           onPressed: () {
-            launch("https://github.com/potatosalad775/eqTrainer/releases/latest/");
+            _launchURL;
           },
         ),
       ],
     );
+  }
+
+  Future<void> _launchURL() async {
+    if(!await launchUrl(Uri.parse("https://github.com/potatosalad775/eqTrainer/releases/latest/"))) {
+      throw Exception('Could not launch URL');
+    }
   }
 }

@@ -12,15 +12,15 @@ class SessionPageManager {
   // approximate list of values for EQ Filter graphs.
   // it DOES NOT accurately resemble Constant-Q Filter graph.
   // it utilizes Gaussian Function to draw graphs.
-  // see updateGraph Function for more info.
+  // head to 'updateGraph Function' for more info.
   late List<LineChartBarData> graphData;
 
-  // list of x axis value of graph's vertexes.
+  // list containing x axis values of graph vertex.
   late List<int> graphVertexData;
-  // center frequency list. it matches with each graph's vertex x axis value
+  // list containing center frequency. it matches with each graph vertex's x axis value.
   late List<int> vertexFrequencyData;
 
-  // each separated audioPlayer will have separated audio source
+  // each AudioPlayer elements will have separate audio source.
   late AudioPlayer originalPlayer;
   late AudioPlayer filteredPlayer;
   late ConcatenatingAudioSource originalAudioSource;
@@ -57,7 +57,7 @@ class SessionPageManager {
 
     // originalPlayer and filteredPlayer ALWAYS works together. (play, pause, seek...)
     // turning filter on/off will actually manipulate each player's volume.
-    // this will only listen OriginalPlayer's state for reason above.
+    // this will only listen OriginalPlayer's state for the reason above.
     _listenOriginalPlayerState();
 
     // reset session result
@@ -77,15 +77,14 @@ class SessionPageManager {
     await convertToFrequency();
 
     // this will create /adjusted directory in app document directory, if this does not exist.
-    adjustedFolderDir = await Directory(globals.appDocumentDirectory.path + '/adjusted').create(recursive: true);
+    adjustedFolderDir = await Directory('${globals.appDocumentDirectory.path}/adjusted').create(recursive: true);
     // this will create /filtered directory in app temporary directory, if this does not exist.
-    filteredFolderDir = await Directory(globals.appDocumentDirectory.path + '/filtered').create(recursive: true);
+    filteredFolderDir = await Directory('${globals.appDocumentDirectory.path}/filtered').create(recursive: true);
 
 
     // setting audio source for each players (player for original audio, and filtered audio)
     // setFilteredAudioSource function includes creating filtered audio from original audio.
     await setOriginalAudioSource();
-
     await setFilteredAudioSource();
 
     updateFlag.value = false;
@@ -141,7 +140,7 @@ class SessionPageManager {
   }
 
   // answerIndex contains index value of graph that EQ Filter will be applied
-  // minimum 1 to maximum - the number of graphs
+  // minimum '1' to maximum 'the number of graphs'
   final answerIndex = ValueNotifier<int>(0);
   int previousAnswer = 0;
 
@@ -184,10 +183,10 @@ class SessionPageManager {
     List<int> requestedGraphVertex = [];
 
     // divTemp is half of the distance between top points of graphs.
-    // this will be used to record graph's middle point x axis.
+    // this will be used to calculate graph vertex's x axis value.
     double divTemp = ((650 - 59) / (globals.sessionStartingBand * 2));
 
-    // graphCenterPoint collects graph's middle x axis point.
+    // graphCenterPoint collects graph vertex's x axis value.
     for(int i = 1; i <= globals.sessionStartingBand; i++) {
       double diff = ((2 * i) - 1) * divTemp;
       requestedGraphVertex.add(59 + diff.toInt());
@@ -205,7 +204,7 @@ class SessionPageManager {
     List<FlSpot> spots = [];
     // LineChartBarData that this function will return
     List<LineChartBarData> requestedLCBD = [];
-    // this is the Q Factor just for the graph, not EQ Filter
+    // this is the Q Factor just for the graph to look pretty, not accurately following EQ Filter.
     // ...since graphs are way too overlapping each other as Starting Band increases.
     double graphQFactor = (86 - (3 * globals.sessionStartingBand)).toDouble();
 
@@ -236,7 +235,7 @@ class SessionPageManager {
         requestedLCBD.add(
             LineChartBarData(
                 isCurved: true,
-                colors: [Colors.redAccent],
+                color: Colors.redAccent,
                 barWidth: 5,
                 isStrokeCapRound: true,
                 dotData: FlDotData(show: false),
@@ -261,7 +260,7 @@ class SessionPageManager {
         requestedLCBD.add(
             LineChartBarData(
                 isCurved: true,
-                colors: [Colors.redAccent],
+                color: Colors.redAccent,
                 barWidth: 5,
                 isStrokeCapRound: true,
                 dotData: FlDotData(show: false),
@@ -273,7 +272,7 @@ class SessionPageManager {
       }
     }
     // changing color of first graph, from red to blue. (since graph selector is initialized with 1)
-    requestedLCBD[0] = requestedLCBD[0].copyWith(colors: [Colors.blueAccent]);
+    requestedLCBD[0] = requestedLCBD[0].copyWith(color: Colors.blueAccent);
     graphData = requestedLCBD;
   }
 
@@ -428,7 +427,7 @@ class SessionPageManager {
       if(globals.playlistData[index].enabled) {
         // Check if adjusted clip already exists.
         // adjusted clip name format : <GainValue>_<startPointinMSec>_<endPointinMSec>_<fileName>.
-        final String adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
+        final String adjustedClipDir = '${adjustedFolderDir.path}/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_${globals.playlistData[index].name}';
         // if adjusted clip does not exist...
         bool isAdjustedClipExist = await File(adjustedClipDir).exists();
         if(!isAdjustedClipExist) {
@@ -483,8 +482,8 @@ class SessionPageManager {
         }
 
         // complete directory of filtered audio clip - ex) tempdir/filtered/2_6_156_651_filename.mp3
-        final String filteredClipDir = filteredFolderDir.path + '/${answerIndex.value}_${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
-        final String adjustedClipDir = adjustedFolderDir.path + '/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_' + globals.playlistData[index].name;
+        final String filteredClipDir = '${filteredFolderDir.path}/${answerIndex.value}_${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_${globals.playlistData[index].name}';
+        final String adjustedClipDir = '${adjustedFolderDir.path}/${globals.sessionGain}_${globals.playlistData[index].startPoint.inMilliseconds}_${globals.playlistData[index].endPoint.inMilliseconds}_${globals.playlistData[index].name}';
         // if filtered clip does not exist...
         bool isFilteredClipExist = await File(filteredClipDir).exists();
         if(!isFilteredClipExist) {
