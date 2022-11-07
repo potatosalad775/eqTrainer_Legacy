@@ -33,7 +33,7 @@ Or, You can download eqTrainer APK file directly from [Release Tab](https://gith
 ### iOS
 
 #### (IMPORTANT)
-**IPA builds for iOS will not be updated until further notice. I had to return my borrowed Mac back to University. Sorry!**    
+**IPA builds for iOS will not be updated until further notice. I had to return rented Macbook back to University. Sorry!**    
 **Latest iOS Build Release - [v1.0.4 (22/03/02)](https://github.com/potatosalad775/eqTrainer/releases/tag/v1.0.4)**
 
 eqTrainer will NOT be publicated on Apple Appstore. You can download eqTrainer IPA file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).    
