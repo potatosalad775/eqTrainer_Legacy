@@ -1,10 +1,13 @@
-# eqTrainer
+# eqTrainer_Legacy
 ## Open-source listening experience trainer, Powered by Flutter.
 ![READMD HEADER](https://user-images.githubusercontent.com/7566778/154788679-29d1122e-7232-4d5b-b93a-17db2597fec5.png)
 
 --------------------
 
 ## Overview   
+
+I have decided to completely re-engineer current eqTrainer project with serious changes.
+New project is still on going, and you can still use eqTrainer_Legacy project! See you soon!
 
 eqTrainer is a Flutter-based, Open-source Listening Experience training app for Android.
    
