@@ -27,8 +27,12 @@ improve their critical listening skills.
 ### Android
 
 <a href='https://play.google.com/store/apps/details?id=kr.potatosalad.eqtrainer.eqtrainer&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width='200'/></a>   
-eqTrainer is available for download on Google Play Store!   
-Or, You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases).
+~~eqTrainer is available for download on Google Play Store!~~   
+
+eqTrainer got suspended from Google Play Store ~~yet again~~.   
+
+due to a deadlock in Play Console, it would take a long time until eqTrainer to get back online.   
+You can download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases) for now.
    
 ### iOS
 
@@ -46,8 +50,8 @@ eqTrainer supports multiple languages.
 If you are interested in translating this app into your language,
 Please translate [en_US.yaml][ENG_YAML_LINK] file and send it to <transaction@kakao.com>. 
 
-## To Do (in Works)
-* Landscape Mode
+## ~~To Do (in Works)~~
+**Complete Remake of eqTrainer Project with Real-time Audio Filtering is in the works now. See You Soon!**
 
 ---------------------
 
