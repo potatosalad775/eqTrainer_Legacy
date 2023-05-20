@@ -32,7 +32,7 @@ improve their critical listening skills.
 eqTrainer got suspended from Google Play Store ~~yet again~~.   
 ~~due to a deadlock in Play Console, it would take a long time until eqTrainer to get back online.~~
 
-Google Play Team refused to recover eqTrainer. I'm forced to change the package name of it and reupload the entire project, but since I've been preparing Complete Remake of eqTrainer Project, I'm not going to fight against people over google about it.
+Google Play Team refused to recover eqTrainer. I'm forced to change the package name of it and reupload the entire project, but since I've been preparing Complete Remake of eqTrainer Project, I'm not going to fight against people at google about it.
 
 You can still download eqTrainer APK file directly from [Release Tab](https://github.com/potatosalad775/eqTrainer/releases) for now. See You Soon!
    
