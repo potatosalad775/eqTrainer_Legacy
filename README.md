@@ -1,12 +1,12 @@
 <div align="center">
 
-![READMD HEADER](https://raw.githubusercontent.com/potatosalad775/eqTrainer/master/.github/new_header.png)
+![READMD HEADER](https://raw.githubusercontent.com/potatosalad775/eqTrainer_Legacy/master/.github/new_header.png)
 
 **Open-source Listening Experience Training App, Powered by Flutter.**
 
 This version of eqTrainer - the 'eqTrainer Legacy' is deprecated and will not be maintained.
 
-Please refer to a [completely re-written, new eq_trainer project.](https://github.com/potatosalad775/eq_trainer)
+Please refer to a [completely re-written, new eq_trainer project.](https://github.com/potatosalad775/eqTrainer)
 
 --------------------
 
@@ -33,9 +33,9 @@ as How to Listen did, 'eqTrainer Legacy' is free to audio enthusiasts, those who
 
 New eq_trainer offers much better functionality with greater optimization with performance boost.
 
-We strongly recommend that you download the new eq_trainer project [over here.](https://github.com/potatosalad775/eq_trainer)
+We strongly recommend that you download the new eq_trainer project [over here.](https://github.com/potatosalad775/eqTrainer)
 
-Although, you can still download 'eqTrainer Legacy' at [release section.](https://github.com/potatosalad775/eqTrainer/releases)
+Although, you can still download 'eqTrainer Legacy' at [release section.](https://github.com/potatosalad775/eqTrainer_Legacy/releases)
 
 ---------------------
    
